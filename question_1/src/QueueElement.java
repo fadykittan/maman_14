@@ -12,6 +12,7 @@ public class QueueElement<T> {
         this._element = element;
     }
 
+
     public T get_element() {
         return this._element;
     }
@@ -21,7 +22,9 @@ public class QueueElement<T> {
     }
 
 
-    public boolean equals(QueueElement<T> other) {
-        return this._element.equals(other._element);
+    public boolean equals(Object other) {
+        QueueElement<T> toFind = (QueueElement<T>)other;
+        return this._element.equals(toFind._element);
     }
+
 }

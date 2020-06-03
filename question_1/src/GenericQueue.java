@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
-public class GenericQueue<T> {
+public class GenericQueue<T> implements Iterable<T> {
 
     private PriorityQueue<QueueElement<T>> queue;
     private static final int MIN = 1;
@@ -19,7 +20,7 @@ public class GenericQueue<T> {
     }
 
     public void add(T data, int p) {
-        if (p >= priorityNum && p <= MIN) {
+        if (p > priorityNum || p < MIN) {
             p = priorityNum;
         }
         QueueElement<T> element = new QueueElement<>(data, p);
@@ -28,20 +29,41 @@ public class GenericQueue<T> {
 
 
     public T poll() {
-        QueueElement<T> element = queue.poll();
-        if (element == null) {
+        QueueElement<T> el = queue.poll();
+        if (el == null) {
             return null;
         } else {
-            return element.get_element();
+            return el.get_element();
         }
     }
 
-    public boolean contains(T toFind) {
-        QueueElement<T> e = new QueueElement<>(toFind);
+    public boolean contains(T find) {
+        QueueElement<T> e = new QueueElement<>(find);
         return queue.contains(e);
+    }
+// todo check this if works
+    public boolean remove (T find){
+        QueueElement<T> e = new QueueElement<>(find);
+        return queue.remove(e);
+    }
+
+    public int size (){
+        return queue.size();
+
     }
 
 
+    @Override
+    public Iterator<T> iterator() {
+        ArrayList<T> array = new ArrayList<>();
+        for (Iterator<QueueElement<T>> it = queue.iterator(); it.hasNext(); ) {
+            QueueElement<T> i = it.next();
+            array.add(i.get_element());
+        }
+        return array.iterator();
+    }
 
-
+    public Iterator<QueueElement<T>> getAll() {
+           return queue.iterator();
+    }
 }
