@@ -97,6 +97,14 @@ public class MainClass {
             System.out.println("-------------------------");
             toPrintCustomerRequest(requestsQueue);
 
+
+            cr = new CustomerRequest("no name", getRandomData(), "no message");
+            System.out.println("Test Contains for non existing element");
+            System.out.println("is Contains: " + requestsQueue.contains(cr));
+            System.out.println("-------------------------");
+            toPrintCustomerRequest(requestsQueue);
+
+
         }
 
 
