@@ -41,7 +41,7 @@ public class GenericQueue<T> implements Iterable<T> {
         QueueElement<T> e = new QueueElement<>(find);
         return queue.contains(e);
     }
-// todo check this if works
+
     public boolean remove (T find){
         QueueElement<T> e = new QueueElement<>(find);
         return queue.remove(e);

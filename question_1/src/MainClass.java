@@ -8,7 +8,7 @@ public class MainClass {
 
     private static final int MAX_PRIORITY = 5;
 
-
+//todo change to true
     private static final boolean isRunCheckForInteger = false;
     private static final boolean isRunCheckForCustomerRequest = true;
 
@@ -51,9 +51,6 @@ public class MainClass {
 
             iterateAndPrint(gq);
         }
-
-
-
 
         ///////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////
@@ -103,15 +100,7 @@ public class MainClass {
             System.out.println("is Contains: " + requestsQueue.contains(cr));
             System.out.println("-------------------------");
             toPrintCustomerRequest(requestsQueue);
-
-
         }
-
-
-
-
-
-
     }
 
     private static int getRandomData(){
@@ -136,7 +125,6 @@ public class MainClass {
         System.out.println("size= " + print.size());
 
         System.out.println("==================================================================");
-
     }
 
     private static void iterateAndPrint(GenericQueue<Integer> print) {
@@ -156,8 +144,6 @@ public class MainClass {
 
         System.out.println("==================================================================");
     }
-
-
 
     private static <T> void toPrintGeneric(GenericQueue<T> print){
         for (Iterator<QueueElement<T>> it = print.getAll(); it.hasNext(); ) {
@@ -183,5 +169,4 @@ public class MainClass {
 
         System.out.println("==================================================================");
     }
-
 }
