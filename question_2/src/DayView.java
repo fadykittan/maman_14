@@ -7,16 +7,16 @@ import java.util.ArrayList;
 public class DayView extends JPanel {
 
     private JButton cmdShowEvent;
+    private ArrayList<Event> events;
 
-    public DayView(ArrayList<String> events) {
+    public DayView(ArrayList<Event> events) {
         cmdShowEvent = new JButton("Show Event");
         cmdShowEvent.addActionListener(new ShowEvent());
         add(cmdShowEvent);
 
-        //todo temp code
-        events.add("meet 1");
-        events.add("meet 2");
-        events.forEach(e -> add(new JLabel(e, SwingConstants.CENTER)));
+        this.events = events;
+
+        this.events.forEach(e -> add(new JLabel(e.getTitle(), SwingConstants.CENTER)));
     }
 
     public void paintComponent(Graphics g) {
@@ -27,9 +27,15 @@ public class DayView extends JPanel {
 
     private class ShowEvent implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            String st = "Welcome";
-            JOptionPane.showMessageDialog(null, st, "event title", JOptionPane.INFORMATION_MESSAGE);
+        public void actionPerformed(ActionEvent a) {
+            String txt = "";
+
+            for(Event e : events){
+                txt += e.getTitle() + ":\n";
+                txt += e.getText() + "\n";
+            }
+
+            JOptionPane.showMessageDialog(null, txt, "Events List", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

@@ -6,7 +6,6 @@ public class CalendarView extends JPanel {
 
     private final int DAYS_IN_ROW = 7;
     private final int DAYS_IN_COLUMN = 6;
-    private final int MARGIN = 0;
 
     public CalendarView() {
         setLayout(new GridLayout(DAYS_IN_ROW, DAYS_IN_COLUMN + 1));

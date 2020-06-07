@@ -4,16 +4,33 @@ import java.awt.*;
 public class CalendarGUI extends JPanel {
 
     private JButton cmdAddEvent, cmdShowMonth;
+    private int month = 1;
+    private int year = 2020;
+    private JTextField txtMonth, txtYear;
+    private JLabel lblMonth, lblYear;
+    private JTextField txtMonthDate, txtYearDate, txtDayDate, txtTitle, txtMessage;
 
     public CalendarGUI() {
         this.setLayout(new BorderLayout());
 
         // Top Part
-        cmdAddEvent = new JButton("Add Event");
         cmdShowMonth = new JButton("Show Month");
+        cmdAddEvent = new JButton("Add Event");
+        txtMonth = new JTextField(3);
+        txtYear = new JTextField(5);
+        lblMonth = new JLabel(" Month: " + month, SwingConstants.CENTER);
+        lblYear = new JLabel(" Year: " + year, SwingConstants.CENTER);
+
+
 
         JPanel controls = new JPanel();
+        controls.add(lblMonth);
+        controls.add(lblYear);
         controls.add(cmdShowMonth);
+        controls.add(new JLabel("Month: "));
+        controls.add(txtMonth);
+        controls.add(new JLabel("Year: "));
+        controls.add(txtYear);
         controls.add(cmdAddEvent);
         add(controls, BorderLayout.NORTH);
 
