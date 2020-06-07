@@ -3,7 +3,7 @@ public class Event {
     private String text;
     private String title;
 
-    public Event (String text , String title){
+    public Event (String title , String text){
         this.text = text;
         this.title = title;
     }
