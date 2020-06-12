@@ -11,6 +11,7 @@ public class DayData {
         this.dayOfWeek = dayOfWeek;
     }
 
+
     public ArrayList<Event> getEventsData(){
         return eventsData;
     }
