@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class DayView extends JPanel {
@@ -9,10 +11,12 @@ public class DayView extends JPanel {
     private JButton cmdShowEvent;
     private ArrayList<Event> events;
 
-    public DayView(ArrayList<Event> events) {
+    public DayView() {
         cmdShowEvent = new JButton("Show Event");
         cmdShowEvent.addActionListener(new ShowEvent());
         add(cmdShowEvent);
+
+        this.addMouseListener(new MListener());
 
         this.events = events;
 
@@ -38,6 +42,18 @@ public class DayView extends JPanel {
             JOptionPane.showMessageDialog(null, txt, "Events List", JOptionPane.INFORMATION_MESSAGE);
         }
 
+    }
+
+
+    private class MListener extends MouseAdapter {
+
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                JOptionPane.showMessageDialog(null, "B1", "Events List", JOptionPane.INFORMATION_MESSAGE);
+            } else if (e.getButton() == MouseEvent.BUTTON3) {
+                JOptionPane.showMessageDialog(null, "B2", "Events List", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 
 }
