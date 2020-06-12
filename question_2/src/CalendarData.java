@@ -5,7 +5,7 @@ import java.util.Map;
 public class CalendarData {
 
     private Calendar cal;
-    private Map<Calendar,Event> eventsList = new HashMap();
+    private Map<Calendar,Event> eventsMap = new HashMap();
 
     public CalendarData(){
         this.cal = Calendar.getInstance();
@@ -27,7 +27,7 @@ public class CalendarData {
         Calendar c = Calendar.getInstance();
         c.set(year,month,day);
         Event e = new Event(title , text);
-        eventsList.put(c,e);
+        eventsMap.put(c,e);
     }
 
 
