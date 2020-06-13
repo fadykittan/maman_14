@@ -8,50 +8,67 @@ import java.util.ArrayList;
 
 public class DayView extends JPanel {
 
-    private JButton cmdShowEvent;
-    private ArrayList<Event> events;
+    private DayData dayData;
+    private boolean isEmptyday;
+    private JLabel lblDate;
+
+    public DayView(DayData dayData) {
+        this.dayData = dayData;
+        this.addMouseListener(new MListener());
+        this.lblDate = new JLabel();
+
+        //add(new JLabel(dayData.getDay() + "-" + dayData.getMonth() + "-" + dayData.getYear(), SwingConstants.CENTER));
+        this.isEmptyday = false;
+
+//        this.dayData.getEventsData().forEach(e -> add(new JLabel(e.getTitle(), SwingConstants.CENTER)));
+    }
 
     public DayView() {
-        cmdShowEvent = new JButton("Show Event");
-        cmdShowEvent.addActionListener(new ShowEvent());
-        add(cmdShowEvent);
-
         this.addMouseListener(new MListener());
+        this.lblDate = new JLabel();
+        this.isEmptyday = true;
+    }
 
-        this.events = events;
-
-        this.events.forEach(e -> add(new JLabel(e.getTitle(), SwingConstants.CENTER)));
+    public void setDayView(DayData dayData, boolean isEmptyday) {
+        this.dayData = dayData;
+        this.isEmptyday = isEmptyday;
     }
 
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(Color.blue);
         g.drawRect(0, 0, getWidth(), getHeight());
-    }
-
-
-    private class ShowEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent a) {
-            String txt = "";
-
-            for(Event e : events){
-                txt += e.getTitle() + ":\n";
-                txt += e.getText() + "\n";
-            }
-
-            JOptionPane.showMessageDialog(null, txt, "Events List", JOptionPane.INFORMATION_MESSAGE);
+        if (!isEmptyday) {
+            this.lblDate.setText(dayData.getDay() + "-" + dayData.getMonth() + "-" + dayData.getYear());
         }
-
     }
 
 
     private class MListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
+
+            if(DayView.this.isEmptyday) {
+                return;
+            }
+
             if (e.getButton() == MouseEvent.BUTTON1) {
-                JOptionPane.showMessageDialog(null, "B1", "Events List", JOptionPane.INFORMATION_MESSAGE);
+                String txt = "";
+
+                for(Event event : DayView.this.dayData.getEventsData()){
+                    txt += event.getTitle() + ":\n";
+                    txt += event.getText() + "\n";
+                }
+
+                JOptionPane.showMessageDialog(null, txt, "Events List", JOptionPane.INFORMATION_MESSAGE);
             } else if (e.getButton() == MouseEvent.BUTTON3) {
-                JOptionPane.showMessageDialog(null, "B2", "Events List", JOptionPane.INFORMATION_MESSAGE);
+
+                String title = JOptionPane.showInputDialog("Please enter event title: ");
+                String txt = JOptionPane.showInputDialog("Please enter event details: ");
+
+                CalendarData.saveEvent(title, txt, DayView.this.dayData.getYear(), DayView.this.dayData.getMonth(), DayView.this.dayData.getDay());
+
+                repaint();
             }
         }
     }
