@@ -51,6 +51,10 @@ public class CalendarGUI extends JPanel {
         CalendarView cv = new CalendarView(year, month);
         add(cv, BorderLayout.CENTER);
 
+        JOptionPane.showMessageDialog(null, "To set new event, right click on the date\n" +
+                "To show events list left click on the date.\n\n " +
+                "Enjoy using :) ", "How to Use", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     public void paintComponent(Graphics g) {
