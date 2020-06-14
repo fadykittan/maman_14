@@ -1,21 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CalendarGUI extends JPanel {
 
-    private JButton cmdAddEvent, cmdShowMonth;
+    private JButton cmdShowMonth;
     private int month = 1;
     private int year = 2020;
     private JTextField txtMonth, txtYear;
     private JLabel lblMonth, lblYear;
-    private JTextField txtMonthDate, txtYearDate, txtDayDate, txtTitle, txtMessage;
+    private BorderLayout myLayout;
+//    private JTextField txtMonthDate, txtYearDate, txtDayDate, txtTitle, txtMessage;
 
     public CalendarGUI() {
-        this.setLayout(new BorderLayout());
+        this.myLayout = new BorderLayout();
+        this.setLayout(this.myLayout);
 
         // Top Part
         cmdShowMonth = new JButton("Show Month");
-        cmdAddEvent = new JButton("Add Event");
+        cmdShowMonth.addActionListener(new BListener());
+//        cmdAddEvent = new JButton("Add Event");
         txtMonth = new JTextField(3);
         txtYear = new JTextField(5);
         lblMonth = new JLabel(" Month: " + month, SwingConstants.CENTER);
@@ -31,7 +36,7 @@ public class CalendarGUI extends JPanel {
         controls.add(txtMonth);
         controls.add(new JLabel("Year: "));
         controls.add(txtYear);
-        controls.add(cmdAddEvent);
+//        controls.add(cmdAddEvent);
         add(controls, BorderLayout.NORTH);
 
 
@@ -43,14 +48,60 @@ public class CalendarGUI extends JPanel {
         add(new EventsView(), BorderLayout.SOUTH);
 
         // add month view
-        CalendarView cv = new CalendarView();
+        CalendarView cv = new CalendarView(year, month);
         add(cv, BorderLayout.CENTER);
+
+        JOptionPane.showMessageDialog(null, "To set new event, right click on the date\n" +
+                "To show events list left click on the date.\n\n " +
+                "Enjoy using :) ", "How to Use", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
     public void paintComponent(Graphics g) {
-
-        g.fillOval(10, 10, 10, 10);
+//        this.remove(this.myLayout.getLayoutComponent(BorderLayout.CENTER));
+//        add(new CalendarView(year, month));
+        super.paintComponent(g);
     }
+
+    private void setLabelText() {
+        lblMonth.setText(" Month: " + month);
+        lblYear.setText(" Year: " + year);
+    }
+
+    private class BListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String year = CalendarGUI.this.txtYear.getText();
+            String month = CalendarGUI.this.txtMonth.getText();
+
+            if (year == null || year.isEmpty() || month == null || month.isEmpty()) {
+                return;
+            }
+
+            int y;
+            int m;
+
+            try {
+                y = Integer.parseInt(year);
+                m = Integer.parseInt(month);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Please enter valid month and year", "Error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+//            CalendarGUI.this.changeCalendarView(y, m);
+            CalendarGUI.this.year = y;
+            CalendarGUI.this.month = m;
+            CalendarGUI.this.setLabelText();
+            CalendarGUI.this.remove(CalendarGUI.this.myLayout.getLayoutComponent(BorderLayout.CENTER));
+            CalendarGUI.this.add(new CalendarView(y, m), BorderLayout.CENTER);
+            CalendarGUI.this.revalidate();
+            repaint();
+
+        }
+    }
+
+
 
 }
